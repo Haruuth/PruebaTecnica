@@ -1,14 +1,18 @@
 <div>
     <h2>PRODUCTOS</h2>
-    <ul>
-        <li *ngFor="let item of data">
-            {{item.bestseller}}
-            {{item.category}}
+    <ul class="lista">
+        <div *ngIf="response.length > 0">
+            <img  *ngIf="response[0].featured" [src]="response[0].src" alt="Producto destacado"/>
+            </div>
+        <li *ngFor="let item of response">
             {{item.name}}
+            <img src={{item.image.src}}/>
+            {{item.category}}
             {{item.description}}
             {{item.price}}
-            {{item.image}}
-            {{item.category}}
         </li>
     </ul>
 </div>
+
+
+  
