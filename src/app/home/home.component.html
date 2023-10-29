@@ -1,18 +1,59 @@
-<div>
-    <h2>PRODUCTOS</h2>
-    <ul class="lista">
-        <div *ngIf="response.length > 0">
-            <img  *ngIf="response[0].featured" [src]="response[0].src" alt="Producto destacado"/>
-            </div>
-        <li *ngFor="let item of response">
-            {{item.name}}
-            <img src={{item.image.src}}/>
-            {{item.category}}
-            {{item.description}}
-            {{item.price}}
+<div class="container">
+  <div>
+    <h2>PRODUCTS</h2>
+    <img src="C:\Users\haruu\Desktop\Prueba Tecnica  Bokokode\eCommerce\src\assets\emptyshoppingcart_shopingcart_carritodelacompravacio_4565-removebg-preview.png"/>
+  </div>
+  <ul class="lista">
+    <div>
+      <div *ngIf="dates && dates.length > 0">
+        <li *ngFor="let product of dates">
+          <img [src]="product.image.src" alt="{{ product.image.alt }}" />
+          <p>Name: {{ product.name }}</p>
+          <p>Category: {{ product.category }}</p>
+          <p>Price: {{ product.price }} {{ product.currency }}</p>
+          <p>Description: {{ product.description }}</p>
         </li>
-    </ul>
+      </div>
+    </div>
+  </ul>
+  <div class="orden">
+    <div class="categories">
+      <h3>Categories</h3>
+      <ol *ngFor="let item of statusCategories">
+        <input
+          id="{{ item.key }}"
+          (click)="checkCategory(item.key)"
+          value="{{ item.key }}"
+          type="checkbox"
+        />
+        <label for="{{ item.key }}">{{ item.key }}</label>
+      </ol>
+    </div>
+    <button (click)="sortProducts()">⬆️⬇️Sort by</button>
+    <select
+      [(ngModel)]="sort.key"
+      (ngModelChange)="postFunction()"
+      id="dropdown"
+    >
+      <option
+        *ngFor="let option of sortKeys | keyvalue"
+        [ngValue]="option.value"
+      >
+        {{ capitalizeFirstLetter(option.value) }}
+      </option>
+    </select>
+  </div>
+
+  <div class="pagination">
+    <button class="page-item" [disabled]="page === 1" (click)="loadPrevPage()">
+      Anterior
+    </button>
+    <button
+      class="page-item"
+      [disabled]="page === lastPage"
+      (click)="loadNextPage()"
+    >
+      Siguiente
+    </button>
+  </div>
 </div>
-
-
-  

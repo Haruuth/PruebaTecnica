@@ -3,37 +3,41 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 
+interface FilterData {
+  sort: { key: string; type: string };
+  categories: string[];
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
+  private URL = 'https://technical-frontend-api.bokokode.com/api/products';
 
-  private URL = "https://technical-frontend-api.bokokode.com/api/products/";
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  // public getData () : Observable<any> {
-  //   return this.http.get<any>(this.URL);
-  // }
-
-  public postData(): Observable<any> {
-    const body = {
-      sort: {
-        key: "price",
-        type: "ASC"
-      },
-      categories: [
-        "people", "food", "landmarks", "pets", "premium", "cities", "nature"
-      ]
+  postPagination(page: number, productsPerPage: number): Observable<any> {
+    const postData = {
+      page: page.toString(),
+      per_page: productsPerPage.toString(),
     };
+    return this.http.post(
+      `https://technical-frontend-api.bokokode.com/api/products?page=${page}`,
+      postData
+    );
+  }
 
+  public postData(filterData: FilterData | {}): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+        'Content-Type': 'application/json',
+      }),
     };
 
-    return this.http.post<any>(this.URL, body, httpOptions);
+    return this.http.post<any>(
+      'https://technical-frontend-api.bokokode.com/api/products',
+      filterData,
+      httpOptions
+    );
   }
 }
