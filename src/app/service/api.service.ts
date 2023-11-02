@@ -18,11 +18,11 @@ export class ApiService {
 
   postPagination(page: number, productsPerPage: number): Observable<any> {
     const postData = {
-      page: page.toString(),
-      per_page: productsPerPage.toString(),
+      page: page,
+      per_page: productsPerPage
     };
     return this.http.post(
-      `https://technical-frontend-api.bokokode.com/api/products?page=${page}`,
+      `https://technical-frontend-api.bokokode.com/api/products`,
       postData
     );
   }

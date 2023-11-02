@@ -1,5 +1,5 @@
 // @media all and (min-width: 600px) and (max-width: 768px) {
-  
+
 // }
 
 //  @media all and (max-width: 1400px) {
@@ -13,3 +13,113 @@
 // @media (min-width: 992px) {
 
 // }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.205);
+
+  .logo {
+    width: 130px;
+    height: auto;
+  }
+  .carrito {
+    width: 40px;
+    height: auto;
+  }
+}
+
+.title {
+  display: flex;
+}
+
+.featured {
+  padding: 20px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.addToCart {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.productsSectionInner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+
+.headerProductList {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerTitle {
+  display: flex;
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Crea 3 columnas de igual ancho */
+  gap: 10px;
+}
+.featuredDescription {
+  display: flex;
+  justify-content: space-between;
+}
+
+.alsoTitle {
+  display: flex;
+}
+
+.alsoBuy {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+
+  > div {
+    width: 125px;
+
+    img {
+      height: 150px;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      height: 120px;
+      justify-content: space-between;
+
+    }
+  }
+}
+
+.productTitle {
+  font-weight: 600;
+}
+.similarContent {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.categories{
+  ol{
+    display: flex;
+    gap: 5px;
+  }
+}

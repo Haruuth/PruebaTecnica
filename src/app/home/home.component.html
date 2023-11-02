@@ -1,59 +1,111 @@
 <div class="container">
-  <div>
-    <h2>PRODUCTS</h2>
-    <img src="C:\Users\haruu\Desktop\Prueba Tecnica  Bokokode\eCommerce\src\assets\emptyshoppingcart_shopingcart_carritodelacompravacio_4565-removebg-preview.png"/>
+  <div class="header">
+    <img
+      class="logo"
+      src="https://cdn.bulldogjob.com/system/companies/logos/000/000/940/original/Bejamas_logotype_black.png"
+    />
+    <img
+      class="carrito"
+      src="https://cdn-icons-png.flaticon.com/512/4379/4379539.png"
+    />
   </div>
-  <ul class="lista">
-    <div>
-      <div *ngIf="dates && dates.length > 0">
-        <li *ngFor="let product of dates">
-          <img [src]="product.image.src" alt="{{ product.image.alt }}" />
-          <p>Name: {{ product.name }}</p>
-          <p>Category: {{ product.category }}</p>
-          <p>Price: {{ product.price }} {{ product.currency }}</p>
-          <p>Description: {{ product.description }}</p>
-        </li>
+  <div *ngIf="products && products.length > 0">
+    <div class="featured" *ngIf="featured">
+      <button class="addToCart">ADD TO CART</button>
+      <p>{{ featured.name }}</p>
+      <img [src]="featured.image.src" alt="{{ featured.image.alt }}" />
+      <div class="featuredDescription">
+        <div class="legend">
+          <p>About the {{ featured.name }}</p>
+          <p>{{ featured.category }}</p>
+          <p>{{ featured.description }}</p>
+        </div>
+        <div class="similarContent">
+          <h3>People Also Buy</h3>
+          <div class="alsoBuy">
+            <div *ngFor="let item of featured.people_also_buy">
+              <img [src]="item.image.src" />
+              <div class="content">
+                <p class="similarContentCategory">{{ capitalizeFirstLetter(item.category) }}</p>
+                <p class="productTitle">
+                  {{ item.name }}
+                </p>
+                <p>${{ item.price }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </ul>
-  <div class="orden">
-    <div class="categories">
-      <h3>Categories</h3>
-      <ol *ngFor="let item of statusCategories">
-        <input
-          id="{{ item.key }}"
-          (click)="checkCategory(item.key)"
-          value="{{ item.key }}"
-          type="checkbox"
-        />
-        <label for="{{ item.key }}">{{ item.key }}</label>
-      </ol>
+    <div class="productsSectionOuter">
+      <div class="headerProductList">
+        <div class="headerTitle">
+          <h2>Photogaphy /</h2>
+          <h2>Premium Photos</h2>
+        </div>
+        <div class="sorter">
+          <button (click)="sortProducts()">⬆️⬇️Sort by</button>
+          <select
+            [(ngModel)]="sort.key"
+            (ngModelChange)="postFunction()"
+            id="dropdown"
+          >
+            <option
+              *ngFor="let option of sortKeys | keyvalue"
+              [ngValue]="option.value"
+            >
+              {{ capitalizeFirstLetter(option.value) }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="productsSectionInner">
+        <div class="orden">
+          <div class="categories">
+            <h3>Categories</h3>
+            <ol *ngFor="let item of statusCategories">
+              <input
+                id="{{ item.key }}"
+                (click)="checkCategory(item.key)"
+                value="{{ item.key }}"
+                type="checkbox"
+              />
+              <label for="{{ item.key }}">{{
+                capitalizeFirstLetter(item.key)
+              }}</label>
+            </ol>
+          </div>
+        </div>
+        <ul class="lista">
+          <ol *ngFor="let product of products">
+            <div *ngIf="product.featured === false">
+              <img [src]="product.image.src" alt="{{ product.image.alt }}" />
+              <p>{{ capitalizeFirstLetter(product.category) }}</p>
+              <p class="productTitle">
+                {{ product.name }}
+              </p>
+              <p>{{ product.price }}</p>
+              <div class="product-details"></div>
+            </div>
+          </ol>
+        </ul>
+      </div>
     </div>
-    <button (click)="sortProducts()">⬆️⬇️Sort by</button>
-    <select
-      [(ngModel)]="sort.key"
-      (ngModelChange)="postFunction()"
-      id="dropdown"
-    >
-      <option
-        *ngFor="let option of sortKeys | keyvalue"
-        [ngValue]="option.value"
+    <div class="pagination">
+      <button
+        class="page-item"
+        [disabled]="page === 1"
+        (click)="loadPrevPage()"
       >
-        {{ capitalizeFirstLetter(option.value) }}
-      </option>
-    </select>
-  </div>
-
-  <div class="pagination">
-    <button class="page-item" [disabled]="page === 1" (click)="loadPrevPage()">
-      Anterior
-    </button>
-    <button
-      class="page-item"
-      [disabled]="page === lastPage"
-      (click)="loadNextPage()"
-    >
-      Siguiente
-    </button>
+        Anterior
+      </button>
+      <button
+        class="page-item"
+        [disabled]="page === lastPage"
+        (click)="loadNextPage()"
+      >
+        Siguiente
+      </button>
+    </div>
   </div>
 </div>

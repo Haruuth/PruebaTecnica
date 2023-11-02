@@ -12,6 +12,24 @@ enum SORT_KEYS {
   PRICE = 'price',
 }
 
+interface ProductsFormat {
+  _id: string;
+  name: string;
+  category: string;
+  price: number;
+  currency: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  bestseller: boolean;
+  featured: boolean;
+  description: string;
+  people_also_buy: [] | ProductsFormat[];
+  updated_at: string;
+  created_at: string;
+}
+
 interface Sort {
   key?: SORT_KEYS;
   type?: SORT_TYPE;
@@ -24,13 +42,13 @@ interface Sort {
 })
 export class HomeComponent implements OnInit {
   categories: string[] = [];
-  products: any[] = [];
+  products: ProductsFormat[] = [];
   sortKeys = SORT_KEYS;
   sort: Sort = { key: SORT_KEYS.DEFAULT, type: SORT_TYPE.DESC };
-  dates!: any[];
   page: number = 1;
   productsPerPage: number = 6;
-  lastPage!: number;
+  lastPage: number | undefined;
+  featured: ProductsFormat | undefined;
 
   statusCategories = [
     { key: 'people', checked: false },
@@ -87,12 +105,13 @@ export class HomeComponent implements OnInit {
     return firstLetter + text.substring(1);
   }
 
+  
+
   loadDates() {
     this.apiService
       .postPagination(this.page, this.productsPerPage)
       .subscribe((response: any) => {
-        console.log('Respuesta de la API', response);
-        this.dates = response.data.data;
+        this.products = response.data.data;
         this.lastPage = response.data.last_page;
       });
   }
@@ -106,7 +125,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadNextPage() {
-    if (this.page < this.lastPage) {
+    if (this.lastPage && this.page < this.lastPage) {
       this.page++;
       this.loadDates();
     }
@@ -125,9 +144,16 @@ export class HomeComponent implements OnInit {
     }
 
     this.apiService.postData(postFilter).subscribe((response: any) => {
-      this.products = Object.values(response.data.data);
-      this.lastPage = response.data.last_page;
-      console.log('Respuesta POST:', response.data.data);
+      if (response.data?.data) {
+        const { data, last_page } = response.data;
+        if (data[0].featured) {
+          this.featured = data[0];
+        }
+        this.products = data;
+        this.lastPage = last_page;
+        console.log('Respuesta POST:', data);
+      }
+      //TODO:implementar control de error
     });
   }
 }
