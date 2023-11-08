@@ -1,18 +1,28 @@
+TODO: MOSTRAR LOS PRODUCCTOS EN EL CARRITO Y HACER BIEN EL ENRUTAMIENTO
+
 <div class="container">
   <div class="header">
     <img
       class="logo"
       src="https://cdn.bulldogjob.com/system/companies/logos/000/000/940/original/Bejamas_logotype_black.png"
     />
-    <img
-      class="carrito"
-      src="https://cdn-icons-png.flaticon.com/512/4379/4379539.png"
-    />
+    <div class="cartCounter">
+      <div class="cart-item-count">{{ cartItemCount }}</div>
+      <a routerLink="/cart">
+        <img
+          class="carrito"
+          src="https://cdn-icons-png.flaticon.com/512/4379/4379539.png"
+        />
+      </a> <!-- Enlace al carrito con la imagen -->
+    </div>
   </div>
+  <hr class="separator-line" />
   <div *ngIf="products && products.length > 0">
-    <div class="featured" *ngIf="featured">
-      <button class="addToCart">ADD TO CART</button>
-      <p>{{ featured.name }}</p>
+    <div class="featured" *ngIf="featured" (click)="addToCartById(featured._id)">
+      <div class="featuredHeader">
+        <p>{{ featured.name }}</p>
+        <button class="addToCart">ADD TO CART</button>
+      </div>
       <img [src]="featured.image.src" alt="{{ featured.image.alt }}" />
       <div class="featuredDescription">
         <div class="legend">
@@ -26,7 +36,9 @@
             <div *ngFor="let item of featured.people_also_buy">
               <img [src]="item.image.src" />
               <div class="content">
-                <p class="similarContentCategory">{{ capitalizeFirstLetter(item.category) }}</p>
+                <p class="similarContentCategory">
+                  {{ capitalizeFirstLetter(item.category) }}
+                </p>
                 <p class="productTitle">
                   {{ item.name }}
                 </p>
@@ -37,11 +49,12 @@
         </div>
       </div>
     </div>
+    <hr class="separator-line2" />
     <div class="productsSectionOuter">
       <div class="headerProductList">
         <div class="headerTitle">
           <h2>Photogaphy /</h2>
-          <h2>Premium Photos</h2>
+          <h2 class="premium">Premium Photos</h2>
         </div>
         <div class="sorter">
           <button (click)="sortProducts()">⬆️⬇️Sort by</button>
@@ -59,36 +72,33 @@
           </select>
         </div>
       </div>
-      <div class="productsSectionInner">
-        <div class="orden">
-          <div class="categories">
-            <h3>Categories</h3>
-            <ol *ngFor="let item of statusCategories">
-              <input
-                id="{{ item.key }}"
-                (click)="checkCategory(item.key)"
-                value="{{ item.key }}"
-                type="checkbox"
-              />
-              <label for="{{ item.key }}">{{
-                capitalizeFirstLetter(item.key)
-              }}</label>
-            </ol>
-          </div>
-        </div>
-        <ul class="lista">
-          <ol *ngFor="let product of products">
-            <div *ngIf="product.featured === false">
-              <img [src]="product.image.src" alt="{{ product.image.alt }}" />
-              <p>{{ capitalizeFirstLetter(product.category) }}</p>
-              <p class="productTitle">
-                {{ product.name }}
-              </p>
-              <p>{{ product.price }}</p>
-              <div class="product-details"></div>
-            </div>
+      <div class="orden">
+        <div class="categories">
+          <h3>Category</h3>
+          <ol *ngFor="let item of statusCategories">
+            <input
+              id="{{ item.key }}"
+              (click)="checkCategory(item.key)"
+              value="{{ item.key }}"
+              type="checkbox"
+            />
+            <label for="{{ item.key }}">{{
+              capitalizeFirstLetter(item.key)
+            }}</label>
           </ol>
-        </ul>
+        </div>
+        <div class="productsSectionInner">
+          <ul class="lista">
+            <ol *ngFor="let product of products">
+              <div class="featuredInner" (click)="addToCartById(product._id)">
+                <img [src]="product.image.src" alt="{{ product.image.alt }}" />
+                <p>{{ capitalizeFirstLetter(product.category) }}</p>
+                <p class="productTitle">{{ product.name }}</p>
+                <p>{{ product.price }}</p>
+              </div>
+            </ol>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="pagination">

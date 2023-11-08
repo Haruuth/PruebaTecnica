@@ -49,6 +49,8 @@ export class HomeComponent implements OnInit {
   productsPerPage: number = 6;
   lastPage: number | undefined;
   featured: ProductsFormat | undefined;
+  cart: any[] = [];
+  cartItemCount: number = 0;
 
   statusCategories = [
     { key: 'people', checked: false },
@@ -105,8 +107,6 @@ export class HomeComponent implements OnInit {
     return firstLetter + text.substring(1);
   }
 
-  
-
   loadDates() {
     this.apiService
       .postPagination(this.page, this.productsPerPage)
@@ -155,5 +155,22 @@ export class HomeComponent implements OnInit {
       }
       //TODO:implementar control de error
     });
+  }
+
+  // addToCart(products: any){
+  //   this.cart.push(products);
+  //   this.cartItemCount++;
+  //   console.log("añadido")
+  // }
+
+  addToCartById(productId: string) {
+    const productToAdd = this.products.find(
+      (product) => product._id === productId
+    );
+    if (productToAdd) {
+      this.cart.push(productToAdd);
+      this.cartItemCount++; // Incrementa el contador de productos en el carrito
+      console.log('añadido');
+    }
   }
 }

@@ -36,7 +36,7 @@ export class ApiService {
 
     return this.http.post<any>(
       'https://technical-frontend-api.bokokode.com/api/products',
-      filterData,
+      {...filterData, per_page: 7},
       httpOptions
     );
   }

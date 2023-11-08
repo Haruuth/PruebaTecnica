@@ -22,7 +22,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.205);
+  margin-bottom: 15px;
 
   .logo {
     width: 130px;
@@ -34,15 +34,32 @@
   }
 }
 
+.cartCounter{
+  display: flex;
+}
+
+.separator-line {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.separator-line2 {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-bottom: 50px;
+}
+
 .title {
   display: flex;
 }
 
 .featured {
-  padding: 20px;
+  margin-bottom: 50px;
 
   img {
     width: 100%;
+    margin-bottom: 50px;
   }
 }
 
@@ -70,6 +87,28 @@
 
 .headerTitle {
   display: flex;
+
+  .premium {
+    margin: 0 5px;
+    color: rgba(0, 0, 0, 0.205);
+  }
+}
+.featuredHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 20px;
+
+  p {
+    font-weight: bold;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    background-color: black;
+  }
 }
 
 .lista {
@@ -80,6 +119,7 @@
 .featuredDescription {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 100px;
 }
 
 .alsoTitle {
@@ -103,7 +143,6 @@
       flex-direction: column;
       height: 120px;
       justify-content: space-between;
-
     }
   }
 }
@@ -115,11 +154,38 @@
   display: flex;
   align-items: flex-end;
   flex-direction: column;
+
+  h3 {
+    margin-bottom: 25px;
+  }
 }
 
-.categories{
-  ol{
+.categories {
+  ol {
     display: flex;
     gap: 5px;
+    margin: 25px;
   }
+  h3{
+    margin: 25px;
+  }
+}
+
+
+
+.featuredInner {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  img {
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+  }
+}
+.orden {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
 }
