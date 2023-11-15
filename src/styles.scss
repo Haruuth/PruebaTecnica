@@ -1,4 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+.arrow-up {
+  &.active {
+    color: black; // Color para el ícono activo
+  }
+
+  &.inactive {
+    color: #a0a0a0; // Color más claro para el ícono inactivo
+  }
+}
+
+.arrow-down {
+  &.active {
+    color: black; // Color para el ícono activo
+  }
+
+  &.inactive {
+    color: #a0a0a0; // Color más claro para el ícono inactivo
+  }
+}
+
 body {
-    font-family: Archivo, sans-serif;
+  font-family: Archivo, sans-serif;
 }

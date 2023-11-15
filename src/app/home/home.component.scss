@@ -1,20 +1,5 @@
-// @media all and (min-width: 600px) and (max-width: 768px) {
-
-// }
-
-//  @media all and (max-width: 1400px) {
-
-// }
-
-//  @media all and (max-width: 600px) {
-
-// }
-
-// @media (min-width: 992px) {
-
-// }
-
 * {
+  
   margin: 0;
   padding: 0;
 }
@@ -189,3 +174,41 @@
   justify-content: space-between;
   margin-top: 50px;
 }
+
+.active {
+  color: rgba(245, 13, 13, 0.082); /* O cualquier color que desees para resaltar la flecha activa */
+}
+
+
+// @media all and (min-width: 600px) and (max-width: 768px) {
+
+//   .header {
+//     flex-direction: column;
+//     align-items: center;
+  
+//     .logo {
+//       width: 100%;
+//     }
+  
+//     .carrito {
+//       width: 30px;
+//     }
+  
+//     .featured img {
+//       margin-bottom: 10px;
+//     }
+  
+//   }
+// }
+
+//  @media all and (max-width: 1400px) {
+
+// }
+
+//  @media all and (max-width: 600px) {
+
+// }
+
+// @media (min-width: 992px) {
+
+// }

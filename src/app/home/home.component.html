@@ -1,5 +1,3 @@
-TODO: MOSTRAR LOS PRODUCCTOS EN EL CARRITO Y HACER BIEN EL ENRUTAMIENTO
-
 <div class="container">
   <div class="header">
     <img
@@ -13,12 +11,17 @@ TODO: MOSTRAR LOS PRODUCCTOS EN EL CARRITO Y HACER BIEN EL ENRUTAMIENTO
           class="carrito"
           src="https://cdn-icons-png.flaticon.com/512/4379/4379539.png"
         />
-      </a> <!-- Enlace al carrito con la imagen -->
+      </a>
+      <!-- Enlace al carrito con la imagen -->
     </div>
   </div>
   <hr class="separator-line" />
   <div *ngIf="products && products.length > 0">
-    <div class="featured" *ngIf="featured" (click)="addToCartById(featured._id)">
+    <div
+      class="featured"
+      *ngIf="featured"
+      (click)="addToCartById(featured._id)"
+    >
       <div class="featuredHeader">
         <p>{{ featured.name }}</p>
         <button class="addToCart">ADD TO CART</button>
@@ -57,7 +60,23 @@ TODO: MOSTRAR LOS PRODUCCTOS EN EL CARRITO Y HACER BIEN EL ENRUTAMIENTO
           <h2 class="premium">Premium Photos</h2>
         </div>
         <div class="sorter">
-          <button (click)="sortProducts()">⬆️⬇️Sort by</button>
+          <button (click)="sortProducts()">
+            <i
+              class="fas fa-arrow-up arrow-up"
+              [ngClass]="{
+                active: sort.type === 'ASC',
+                inactive: sort.type !== 'ASC'
+              }"
+            ></i>
+            <i
+              class="fas fa-arrow-down arrow-down"
+              [ngClass]="{
+                active: sort.type === 'DESC',
+                inactive: sort.type !== 'DESC'
+              }"
+            ></i>
+            Sort by
+          </button>
           <select
             [(ngModel)]="sort.key"
             (ngModelChange)="postFunction()"
